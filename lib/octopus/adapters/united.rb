@@ -14,18 +14,9 @@ module Octopus
 
       namespace :united
 
-      # HOST_URL = "http://partners.api.skyscanner.net/apiservices/pricing/v1.0/".freeze
-
       def initialize(robot)
         super
       end
-
-      # attr_reader :from, :to, :departure
-      # def initialize(from, to, departure)
-      #   @from    = from.upcase
-      #   @to = to.upcase
-      #   @departure = departure
-      # end
 
       def flights(params = {})
         @params = params
@@ -287,11 +278,10 @@ module Octopus
         end
 
         def convert_to_minutes time
-          case time
-          when time.include?('h') && time.include?('m')
+          if time.include?('h') && time.include?('m')
             t = DateTime.parse(time)
             t.hour*60 + t.min
-          when time.include?('h') && !time.include?('m')
+          elsif time.include?('h') && !time.include?('m')
             t = DateTime.parse(time)
             t.hour*60
           else
