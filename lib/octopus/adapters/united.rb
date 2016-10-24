@@ -279,13 +279,14 @@ module Octopus
 
         def convert_to_minutes time
           if time.include?('h') && time.include?('m')
-            t = DateTime.parse(time)
-            t.hour*60 + t.min
+            h = time.scan(/(\d+h)/).flatten.compact.first.gsub(/h/, '').to_i
+            m = time.scan(/(\d+m)/).flatten.compact.first.gsub(/m/, '').to_i
+            h*60 + m
           elsif time.include?('h') && !time.include?('m')
-            t = DateTime.parse(time)
-            t.hour*60
+            h = time.scan(/(\d+h)/).flatten.compact.first.gsub(/h/, '').to_i
+            h*60
           else
-            time.gsub(/m/, '').to_i
+            time.scan(/(\d+m)/).flatten.compact.first.gsub(/m/, '').to_i
           end
         end
 
